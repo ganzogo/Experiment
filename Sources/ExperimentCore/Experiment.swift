@@ -45,6 +45,30 @@ public struct Experiment {
         try FileManager.default.createDirectory(at: projectURL, withIntermediateDirectories: false, attributes: nil)
         FileManager.default.changeCurrentDirectoryPath(projectURL.path)
         run("swift", "package", "init", "--type", "executable")
+        
+        let packageURL = projectURL.appendingPathComponent("Package.swift")
+        let packageSwift = packageTemplate.replacingOccurrences(of: "{{ name }}", with: name)
+        try packageSwift.write(to: packageURL, atomically: true, encoding: .utf8)
+        
+        let mainURL = projectURL.appendingPathComponent("Sources").appendingPathComponent(name).appendingPathComponent("main.swift")
+        let mainSwift = mainTemplate
+            .replacingOccurrences(of: "{{ name }}", with: name)
+            .replacingOccurrences(of: "{{ name.lower }}", with: name.lowercased())
+        try mainSwift.write(to: mainURL, atomically: true, encoding: .utf8)
+        
+        let coreURL = projectURL.appendingPathComponent("Sources").appendingPathComponent("\(name)Core")
+        try FileManager.default.createDirectory(at: coreURL, withIntermediateDirectories: false, attributes: nil)
+        let coreFileURL = coreURL.appendingPathComponent("\(name).swift")
+        let coreFileSwift = coreTemplate.replacingOccurrences(of: "{{ name }}", with: name)
+        try coreFileSwift.write(to: coreFileURL, atomically: true, encoding: .utf8)
+        
+        try FileManager.default.removeItem(at: projectURL.appendingPathComponent("Tests").appendingPathComponent("\(name)Tests"))
+        try FileManager.default.removeItem(at: projectURL.appendingPathComponent("Tests").appendingPathComponent("LinuxMain.swift"))
+        let coreTestURL = projectURL.appendingPathComponent("Tests").appendingPathComponent("\(name)CoreTests")
+        try FileManager.default.createDirectory(at: coreTestURL, withIntermediateDirectories: false, attributes: nil)
+        let coreTestFileURL = coreTestURL.appendingPathComponent("\(name)Tests.swift")
+        let coreTestFileSwift = coreTestTemplate.replacingOccurrences(of: "{{ name }}", with: name)
+        try coreTestFileSwift.write(to: coreTestFileURL, atomically: true, encoding: .utf8)
     }
 
 }

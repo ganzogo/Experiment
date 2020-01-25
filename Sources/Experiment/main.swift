@@ -12,8 +12,6 @@ let main = command(
 
     do {
         let experiment = try Experiment(path: experimentsPath, name: name)
-        print(experiment.name)
-        print(experiment.projectURL)
         try experiment.generate()
     } catch {
         print(error)

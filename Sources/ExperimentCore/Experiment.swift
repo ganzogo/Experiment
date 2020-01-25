@@ -76,6 +76,11 @@ public struct Experiment {
         run("git", "add", ".")
         run("git", "commit", "-am", "Initial commit.")
         run("swift", "package", "generate-xcodeproj")
+        
+        print("generated project: \(name)")
+        print()
+        print("Now do:")
+        print("cd \(projectURL.path) && open \(name).xcodeproj")
     }
 
 }

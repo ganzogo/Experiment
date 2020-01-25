@@ -2,6 +2,10 @@ import Foundation
 
 final class Dictionary {
     
+    enum Error: Swift.Error {
+        case randomWordGenerationFailed
+    }
+    
     private let words: [String]
     
     init(url: URL) throws {
@@ -36,6 +40,21 @@ private extension String {
     
     var containsOnlyLetters: Bool {
         return self.trimmingCharacters(in: .simpleLetters).isEmpty
+    }
+    
+}
+
+extension Dictionary {
+    
+    static func randomWord() throws -> String {
+        
+        let dictionaryPath = "/usr/share/dict/words"
+        let dictionaryURL = URL(fileURLWithPath: dictionaryPath)
+        let dictionary = try Dictionary(url: dictionaryURL)
+        guard let word = dictionary.randomWord(minimumLength: 5) else {
+            throw Error.randomWordGenerationFailed
+        }
+        return word
     }
     
 }

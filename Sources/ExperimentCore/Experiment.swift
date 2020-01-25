@@ -69,6 +69,13 @@ public struct Experiment {
         let coreTestFileURL = coreTestURL.appendingPathComponent("\(name)Tests.swift")
         let coreTestFileSwift = coreTestTemplate.replacingOccurrences(of: "{{ name }}", with: name)
         try coreTestFileSwift.write(to: coreTestFileURL, atomically: true, encoding: .utf8)
+
+        let gitignoreURL = projectURL.appendingPathComponent(".gitignore")
+        try gitignoreText.write(to: gitignoreURL, atomically: true, encoding: .utf8)
+        run("git", "init")
+        run("git", "add", ".")
+        run("git", "commit", "-am", "Initial commit.")
+        run("swift", "package", "generate-xcodeproj")
     }
 
 }

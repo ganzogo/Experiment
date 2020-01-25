@@ -64,7 +64,7 @@ final class {{ name }}Tests: XCTestCase {
 }
 """
 
-let gitignoreTemplate: String = """
+let gitignoreText: String = """
 .DS_Store
 /.build
 /Packages

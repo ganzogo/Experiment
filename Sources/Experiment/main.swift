@@ -14,7 +14,7 @@ let main = command(
         let experiment = try Experiment(path: experimentsPath, name: name)
         try experiment.generate()
     } catch {
-        print(error)
+        FileHandle.standardError.write("\(error.localizedDescription)\n")
     }
 }
 

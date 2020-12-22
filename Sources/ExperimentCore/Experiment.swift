@@ -75,7 +75,6 @@ public struct Experiment {
         run("git", "init")
         run("git", "add", ".")
         run("git", "commit", "-am", "Initial commit.")
-        run("swift", "package", "generate-xcodeproj")
         
         print(name)
     }

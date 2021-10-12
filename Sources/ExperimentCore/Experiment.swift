@@ -63,7 +63,6 @@ public struct Experiment {
         try coreFileSwift.write(to: coreFileURL, atomically: true, encoding: .utf8)
         
         try FileManager.default.removeItem(at: projectURL.appendingPathComponent("Tests").appendingPathComponent("\(name)Tests"))
-        try FileManager.default.removeItem(at: projectURL.appendingPathComponent("Tests").appendingPathComponent("LinuxMain.swift"))
         let coreTestURL = projectURL.appendingPathComponent("Tests").appendingPathComponent("\(name)CoreTests")
         try FileManager.default.createDirectory(at: coreTestURL, withIntermediateDirectories: false, attributes: nil)
         let coreTestFileURL = coreTestURL.appendingPathComponent("\(name)Tests.swift")

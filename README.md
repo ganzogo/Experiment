@@ -4,6 +4,8 @@ A Swift script to generate a SPM package using templates.
 
 ## Setup
 
+
+
 Add the following to `~/.bash_profile`:
 
 ```

@@ -69,4 +69,5 @@ let gitignoreText: String = """
 /.build
 /Packages
 *~
+.swiftpm
 """

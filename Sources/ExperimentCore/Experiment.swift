@@ -46,6 +46,8 @@ public struct Experiment {
         FileManager.default.changeCurrentDirectoryPath(projectURL.path)
         run("swift", "package", "init", "--type", "executable")
         
+        try FileManager.default.removeItem(at: projectURL.appendingPathComponent("Sources").appendingPathComponent(name).appendingPathComponent("\(name).swift"))
+        
         let packageURL = projectURL.appendingPathComponent("Package.swift")
         let packageSwift = packageTemplate.replacingOccurrences(of: "{{ name }}", with: name)
         try packageSwift.write(to: packageURL, atomically: true, encoding: .utf8)
